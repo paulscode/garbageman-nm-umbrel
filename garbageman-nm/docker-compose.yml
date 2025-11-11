@@ -41,6 +41,10 @@ services:
       # These are automatically provided by Umbrel at runtime
       APP_HIDDEN_SERVICE: ${APP_HIDDEN_SERVICE}  # This app's .onion address (optional)
       DEVICE_HOSTNAME: ${DEVICE_HOSTNAME}        # Umbrel hostname (e.g., umbrel.local)
+      
+      # WebUI Authentication
+      # Umbrel provides APP_PASSWORD which we pass as ADMIN_PASSWORD to the app
+      ADMIN_PASSWORD: ${APP_PASSWORD}            # WebUI login password
     
     networks:
       default:
