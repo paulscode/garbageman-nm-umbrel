@@ -15,6 +15,13 @@ services:
     # Allow 1 minute for graceful shutdown (important for Bitcoin daemons)
     stop_grace_period: 1m
     
+    # Expose ports to the host so users can access the services
+    # Format: "host_port:container_port"
+    ports:
+      - "5173:5173"  # Web UI - main interface
+      - "8080:8080"  # REST API - programmatic access
+      - "9000:9000"  # Supervisor API - daemon management
+    
     volumes:
       # APP_DATA_DIR is provided by Umbrel (typically ~/umbrel/app-data/garbageman-nm)
       # All data is persisted across container restarts and updates
