@@ -2,7 +2,7 @@ manifestVersion: 1
 id: garbageman-nm
 category: bitcoin
 name: Garbageman Nodes Manager
-version: "0.1.1.1"
+version: "0.1.1.2"
 tagline: Multi-daemon Bitcoin node manager with web UI
 description: >-
   Garbageman Nodes Manager is a modern web-based control plane for managing
@@ -42,7 +42,7 @@ port: 5173
 gallery: []
 path: ""
 defaultUsername: ""
-defaultPassword: ""
+defaultPassword: "$APP_PASSWORD"
 torOnly: false
 permissions:
   - STORAGE_DOWNLOADS
