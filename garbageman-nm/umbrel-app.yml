@@ -2,13 +2,20 @@ manifestVersion: 1
 id: garbageman-nm
 category: bitcoin
 name: Garbageman Nodes Manager
-version: "0.1.1.3"
+version: "0.1.1.5"
 tagline: Multi-daemon Bitcoin node manager with web UI
 description: >-
   Garbageman Nodes Manager is a modern web-based control plane for managing
   multiple Bitcoin daemon instances. Run Garbageman or Bitcoin Knots daemons,
   import pre-built binaries and pre-synced blockchains, and discover peers
   via clearnet DNS seeds or Tor-based .onion discovery.
+
+
+  Default Login - Username: admin | Password: garbageman
+
+
+  IMPORTANT: Change the default password after first login (future release
+  will enforce password change on first login).
 
 
   Features:
@@ -41,8 +48,8 @@ support: https://github.com/paulscode/garbageman-nm-umbrel/issues
 port: 5173
 gallery: []
 path: ""
-defaultUsername: ""
-defaultPassword: "$APP_PASSWORD"
+defaultUsername: "admin"
+defaultPassword: "garbageman"
 torOnly: false
 permissions:
   - STORAGE_DOWNLOADS

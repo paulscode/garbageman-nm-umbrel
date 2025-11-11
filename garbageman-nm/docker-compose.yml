@@ -43,8 +43,9 @@ services:
       DEVICE_HOSTNAME: ${DEVICE_HOSTNAME}        # Umbrel hostname (e.g., umbrel.local)
       
       # WebUI Authentication
-      # Umbrel provides APP_PASSWORD which we pass as ADMIN_PASSWORD to the app
-      ADMIN_PASSWORD: ${APP_PASSWORD}            # WebUI login password
+      # Using static default password for initial release
+      # Future release will add in-app password management with forced password change
+      ADMIN_PASSWORD: "garbageman"               # Default WebUI login password
     
     networks:
       default:
