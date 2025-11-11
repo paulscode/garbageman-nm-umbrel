@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  app:
+    # Docker image is pre-built and hosted on Docker Hub
+    # This allows Umbrel to pull the image without needing build tools
+    # Image format: <dockerhub-username>/<image-name>:<version-tag>
+    # When releasing new versions, update this tag to match
+    image: paulscode/garbageman-nm:0.1.1.0
+    
+    # Restart policy: restart only if the container exits with an error
+    # This prevents restart loops if there's a configuration issue
+    restart: on-failure
+    
+    # Allow 1 minute for graceful shutdown (important for Bitcoin daemons)
+    stop_grace_period: 1m
+    
+    volumes:
+      # APP_DATA_DIR is provided by Umbrel (typically ~/umbrel/app-data/garbageman-nm)
+      # All data is persisted across container restarts and updates
+      - ${APP_DATA_DIR}/bitcoin:/data/bitcoin      # Bitcoin daemon data directories
+      - ${APP_DATA_DIR}/envfiles:/data/envfiles    # Instance configuration files
+      - ${APP_DATA_DIR}/artifacts:/data/artifacts  # Downloaded binaries/blockchains
+      - ${APP_DATA_DIR}/tor:/data/tor              # Tor hidden service keys
+    
+    environment:
+      # Tor Configuration
+      # This app runs its own internal Tor daemon (NOT Umbrel's Tor proxy)
+      # The internal daemon is used for .onion peer discovery and hidden services
+      TOR_PROXY_HOST: "127.0.0.1"  # Localhost - Tor daemon runs in same container
+      TOR_PROXY_PORT: "9050"       # Standard Tor SOCKS port
+      
+      # Umbrel Integration Variables
+      # These are automatically provided by Umbrel at runtime
+      APP_HIDDEN_SERVICE: ${APP_HIDDEN_SERVICE}  # This app's .onion address (optional)
+      DEVICE_HOSTNAME: ${DEVICE_HOSTNAME}        # Umbrel hostname (e.g., umbrel.local)
+    
+    networks:
+      default:
+        # Static IP address on Umbrel's private network
+        # APP_GARBAGEMAN_NM_IP is exported from exports.sh (10.21.21.201)
+        ipv4_address: $APP_GARBAGEMAN_NM_IP
