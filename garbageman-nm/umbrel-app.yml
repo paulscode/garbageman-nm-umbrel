@@ -33,7 +33,7 @@ description: >-
   Each instance runs independently with its own data directory, RPC port,
   P2P port, and configuration. Perfect for running multiple versions, testing,
   or separating mainnet/testnet/signet nodes.
-developer: Paul Lamb
+developer: "Paul Lamb"
 website: https://github.com/paulscode/garbageman-nm
 dependencies: []
 repo: https://github.com/paulscode/garbageman-nm-umbrel
@@ -46,5 +46,5 @@ defaultPassword: "$APP_PASSWORD"
 torOnly: false
 permissions:
   - STORAGE_DOWNLOADS
-submitter: Paul Lamb
+submitter: "Paul Lamb"
 submission: https://github.com/paulscode/garbageman-nm-umbrel
