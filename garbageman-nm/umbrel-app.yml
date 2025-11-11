@@ -49,5 +49,5 @@ defaultPassword: ""
 torOnly: false
 permissions:
   - STORAGE_DOWNLOADS
-submitter: Paulscode
+submitter: Paul Lamb
 submission: https://github.com/paulscode/garbageman-nm-umbrel
