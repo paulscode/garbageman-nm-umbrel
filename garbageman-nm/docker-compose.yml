@@ -6,7 +6,7 @@ services:
     # This allows Umbrel to pull the image without needing build tools
     # Image format: <dockerhub-username>/<image-name>:<version-tag>
     # When releasing new versions, update this tag to match
-    image: paulscode/garbageman-nm:0.1.1.0
+    image: paulscode/garbageman-nm:0.1.1.6
     
     # Restart policy: restart only if the container exits with an error
     # This prevents restart loops if there's a configuration issue
