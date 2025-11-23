@@ -1,8 +1,9 @@
 manifestVersion: 1
 id: garbageman-nm
 category: bitcoin
-name: Garbageman Nodes Manager
-version: "0.1.1.6"
+name: Garbageman NM
+version: "0.1.1.7"
+icon: "https://paulscode.com/media/garbageman-nm.svg"
 tagline: Multi-daemon Bitcoin node manager with web UI
 description: >-
   Garbageman Nodes Manager is a modern web-based control plane for managing
