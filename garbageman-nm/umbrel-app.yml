@@ -2,7 +2,7 @@ manifestVersion: 1
 id: garbageman-nm
 category: bitcoin
 name: Garbageman NM
-version: "0.1.1.7"
+version: "0.2.1.0"
 icon: "https://paulscode.com/media/garbageman-nm.svg"
 tagline: Multi-daemon Bitcoin node manager with web UI
 description: >-
@@ -15,8 +15,8 @@ description: >-
   Default Login - Username: admin | Password: garbageman
 
 
-  IMPORTANT: Change the default password after first login (future release
-  will enforce password change on first login).
+  IMPORTANT: You will be required to change the default password on first login.
+  The application enforces secure password management.
 
 
   Features:
