@@ -6,7 +6,7 @@ services:
     # This allows Umbrel to pull the image without needing build tools
     # Image format: <dockerhub-username>/<image-name>:<version-tag>
     # When releasing new versions, update this tag to match
-    image: paulscode/garbageman-nm:0.2.1.5
+    image: paulscode/garbageman-nm:0.2.1.6
     
     # Restart policy: restart only if the container exits with an error
     # This prevents restart loops if there's a configuration issue
@@ -46,7 +46,7 @@ services:
       # WebUI Authentication
       # Using static default password for initial release
       # Future release will add in-app password management with forced password change
-      ADMIN_PASSWORD: "garbageman"               # Default WebUI login password
+      ADMIN_PASSWORD: garbageman               # Default WebUI login password
     
     networks:
       default:
