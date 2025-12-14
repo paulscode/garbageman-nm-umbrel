@@ -2,7 +2,7 @@ manifestVersion: 1
 id: garbageman-nm
 category: bitcoin
 name: Garbageman NM
-version: "0.2.1.14"
+version: "0.2.1.15"
 icon: "https://paulscode.com/media/garbageman-nm.svg"
 tagline: Multi-daemon Bitcoin node manager with web UI
 description: >-
@@ -49,7 +49,6 @@ support: https://github.com/paulscode/garbageman-nm-umbrel/issues
 port: 5173
 gallery: []
 path: ""
-defaultUsername: "admin"
 defaultPassword: "garbageman"
 torOnly: false
 permissions:
