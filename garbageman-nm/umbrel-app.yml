@@ -2,7 +2,7 @@ manifestVersion: 1
 id: garbageman-nm
 category: bitcoin
 name: Garbageman NM
-version: "0.2.1.8"
+version: "0.2.1.9"
 icon: "https://paulscode.com/media/garbageman-nm.svg"
 tagline: Multi-daemon Bitcoin node manager with web UI
 description: >-
