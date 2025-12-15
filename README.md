@@ -27,13 +27,16 @@ This is a **community app store** that allows you to install Garbageman Nodes Ma
 ```
 garbageman-nm-umbrel/
 ├── README.md                      # This file
+├── .gitignore                     # Git ignore patterns
 ├── umbrel-app-store.yml           # App store manifest
 └── garbageman-nm/                 # App directory
     ├── umbrel-app.yml             # App metadata and manifest
-    ├── docker-compose.yml         # Deployment config (uses Docker Hub image)
+    ├── docker-compose.yml         # Deployment config (uses pre-built multi-arch Docker Hub image)
     ├── exports.sh                 # Environment variable exports
-    └── properties.sh              # Script to display password in UI
+    └── icon.svg                   # App icon
 ```
+
+**Note:** Docker images are built from the main [garbageman-nm](https://github.com/paulscode/garbageman-nm) repository and published to Docker Hub as multi-arch images supporting both x86_64 (amd64) and aarch64 (arm64) architectures.
 
 ## For Users: How to Add This App Store
 
@@ -78,45 +81,101 @@ Once the app store is added:
 
 If you're the maintainer and want to release a new version:
 
-1. **Build and push new Docker image:**
-   ```bash
-   # Build from source (see main garbageman-nm repo)
-   # Then tag and push to Docker Hub:
-   docker tag garbageman-nm:local paulscode/garbageman-nm:0.1.2.0
-   docker push paulscode/garbageman-nm:0.1.2.0
-   ```
+### 1. Build and Push Multi-Arch Docker Image
 
-2. **Update files in this repository:**
-   - Update `version` in `garbageman-nm/umbrel-app.yml`
-   - Update `image` tag in `garbageman-nm/docker-compose.yml`
+Docker images are built from the main [garbageman-nm](https://github.com/paulscode/garbageman-nm) repository:
 
-3. **Commit and push to this repository:**
-   ```bash
-   git add .
-   git commit -m "Release v0.1.2.0"
-   git tag v0.1.2.0
-   git push origin main --tags
-   ```
+```bash
+# Navigate to main garbageman-nm repository
+cd ../garbageman-nm
 
-4. **Users will see update available** in their Umbrel dashboard
+# Build and push multi-arch image using the provided script
+./build-and-push-docker.sh 0.2.2.0
 
-## Screenshot Guidelines
+# This builds for linux/amd64 and linux/arm64 and pushes to Docker Hub
+```
 
-Umbrel requires screenshot images for the app gallery. Add these to `garbageman-nm/`:
+The script creates tags:
+- `paulscode/garbageman-nm:0.2.2.0` (version tag)
+- `paulscode/garbageman-nm:latest` (latest tag)
 
-- `1.jpg` - Main dashboard view (1280x720 or 1920x1080)
-- `2.jpg` - Instance management view
-- `3.jpg` - Peer discovery or another feature
+### 2. Update This Repository
 
-Screenshots should show the app's UI with realistic data.
+```bash
+cd garbageman-nm-umbrel
+
+# Update version in umbrel-app.yml
+# Update image tag in docker-compose.yml to match new version
+```
+
+Edit `garbageman-nm/umbrel-app.yml`:
+- Update `version: "0.2.2.0"`
+
+Edit `garbageman-nm/docker-compose.yml`:
+- Update `image: paulscode/garbageman-nm:v0.2.2`
+
+### 3. Commit and Release
+
+```bash
+git add garbageman-nm/umbrel-app.yml garbageman-nm/docker-compose.yml
+git commit -m "feat: Update to v0.2.2 with multi-arch support"
+git tag v0.2.2.0
+git push origin master --tags
+```
+
+### 4. Users Get Updates
+
+Users with this app store added will see the update available in their Umbrel dashboard and can update with one click.
+
+## Development Notes
+
+### Architecture Decisions
+
+**Container Design:**
+- Uses pre-built multi-arch Docker images from Docker Hub
+- Images built from main garbageman-nm repository
+- Single container with supervisord managing 3 services:
+  1. Supervisor (port 9000) - Multi-daemon manager
+  2. API (port 8080) - Fastify backend
+  3. UI (port 5173) - Next.js frontend
+
+**Platform Support:**
+- x86_64 (amd64) - Intel/AMD processors
+- aarch64 (arm64) - ARM processors (Raspberry Pi 5, etc.)
+
+**Network:**
+- IP Assignment: `10.21.21.201` (Umbrel private network)
+- Above the range used by official Umbrel apps (10.21.21.1-100)
+
+**Integration:**
+- Umbrel app_proxy routes traffic to UI (port 5173)
+- Uses Umbrel's environment variables (`$APP_DATA_DIR`, `$TOR_PROXY_IP`, etc.)
+- Static default password: `garbageman` (shown in properties panel)
+
+### Build Process
+
+Docker images are NOT built in this repository. Instead:
+1. Images are built from the main [garbageman-nm](https://github.com/paulscode/garbageman-nm) repo
+2. Built using `build-and-push-docker.sh` script with buildx for multi-arch
+3. Published to Docker Hub as `paulscode/garbageman-nm:VERSION`
+4. This repository simply references the Docker Hub image in `docker-compose.yml`
+
+### Versioning
+
+- **Main repo** uses semantic versioning: `v0.2.2`
+- **Docker tags** use format: `0.2.2.0`, `0.2.2.1`, etc.
+- **Umbrel app** version follows: `0.2.2.0`
+- The fourth digit (`.0`) allows for Umbrel-specific patches
 
 ## Technical Details
 
 ### Docker Image
-This app uses pre-built Docker images from Docker Hub:
+This app uses pre-built multi-arch Docker images from Docker Hub:
 - **Image**: `paulscode/garbageman-nm`
-- **Current version**: `0.1.1.0`
+- **Current version**: `0.2.2.0`
+- **Architectures**: linux/amd64 (x86_64), linux/arm64 (aarch64)
 - **View on Docker Hub**: https://hub.docker.com/r/paulscode/garbageman-nm
+- **Built from**: https://github.com/paulscode/garbageman-nm
 
 ### Network Configuration
 - Internal IP: `10.21.21.201` (Umbrel private network)

@@ -1,0 +1,15 @@
+# Build artifacts
+*.log
+*.tmp
+.DS_Store
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+
+# Local test files
+test-data/
+*.local
