@@ -3,10 +3,11 @@ version: "3.8"
 services:
   app:
     # Docker image is pre-built and hosted on Docker Hub
+    # Multi-arch image supporting x86_64 (amd64) and aarch64 (arm64)
     # This allows Umbrel to pull the image without needing build tools
     # Image format: <dockerhub-username>/<image-name>:<version-tag>
     # When releasing new versions, update this tag to match
-    image: paulscode/garbageman-nm:0.2.1.15
+    image: paulscode/garbageman-nm:v0.2.2
     
     # Restart policy: restart only if the container exits with an error
     # This prevents restart loops if there's a configuration issue
